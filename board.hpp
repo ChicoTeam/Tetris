@@ -17,7 +17,7 @@ namespace Tetris
     char GetBlock(int x,int y);
     bool SetBlock(int x, int y, char val);
     void Render(sf::RenderTarget &target);
-    void CheckRows();
+    bool CheckRows();
   private:
     int width;
     int height;

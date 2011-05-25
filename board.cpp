@@ -95,8 +95,9 @@ namespace Tetris
     }
   }
 
-  void Board::CheckRows()
+  bool Board::CheckRows()
   {
+    bool clearedRow = false;
     for( int y = (height - 1); y >= 0; --y)
     {
       bool full = true;
@@ -108,6 +109,7 @@ namespace Tetris
 
       if(full)
       {
+	clearedRow = true;
 	//Shift all the rows down
 	for( int y2 = y; y2 >= 0; --y2)
 	{
@@ -126,5 +128,6 @@ namespace Tetris
 	}
       }
     }
+    return clearedRow;
   }
 }

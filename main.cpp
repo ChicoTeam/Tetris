@@ -22,8 +22,8 @@ int main()
   sf::Clock clock;
   double totalTime = 0;
   double deltaTime = 0;
-  double nextStepTime = 0.5;
-  float gameSpeed = 5;
+  double nextStepTime = 0;
+  float gameSpeed = 1;
   bool stepSuccessful = true;
 
 
@@ -46,6 +46,7 @@ int main()
     {
       deltaTime = clock.GetElapsedTime();
       totalTime += deltaTime;
+      nextStepTime -= deltaTime;
     }
     clock.Reset();
 
@@ -94,9 +95,9 @@ int main()
       if(movePiece != 0)
 	piece->Move(movePiece,0);
 
-      if( totalTime >= nextStepTime)
+      if( nextStepTime < 0 )
       {
-	nextStepTime = totalTime + (1 / gameSpeed);
+	nextStepTime = (1 / gameSpeed);
 	stepSuccessful = piece->Move(0,1); //move the piece down 1 if we can
       }
 
@@ -110,7 +111,8 @@ int main()
       }
 
       //Check rows
-      board.CheckRows();
+      if(board.CheckRows())
+	gameSpeed += 0.5;
 
     }
 
