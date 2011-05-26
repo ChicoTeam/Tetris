@@ -21,8 +21,6 @@ namespace Tetris
     double deltaTime = 0;
     double nextStepTime = 0;
     float gameSpeed = 1;
-    bool stepSuccessful = true;
-
 
     //Setup the paused boolean and pause text
     bool paused = false;
@@ -35,6 +33,7 @@ namespace Tetris
   
     bool gameOver = false;
     int score = 0;
+    bool freshPiece = true;
 
     while(!gameOver)
     {
@@ -78,7 +77,7 @@ namespace Tetris
 	    bool moving = true;
 	    while(moving)
 	      moving = piece->Move(0,1);
-	    stepSuccessful = false;
+	    freshPiece = false;
 	  }
 
 	  if(event.Key.Code == sf::Key::P)
@@ -102,16 +101,27 @@ namespace Tetris
 	if( nextStepTime < 0 )
 	{
 	  nextStepTime = (1 / gameSpeed);
-	  stepSuccessful = piece->Move(0,1); //move the piece down 1 if we can
-	}
 
-	if(!stepSuccessful)
-	{
-	  //Can't move the piece down, lets place it and get a new one
-	  piece->Place();
-	  delete piece;
-	  piece = new Tetris::Piece(&board,1,1);
-	  stepSuccessful = true;
+	  if( piece->Move(0,1) ) //If we moved the piece down one block successfully
+	  {
+	    freshPiece = false; //It's moved without hitting anything, it's no longer fresh.
+	  }
+	  else
+	  {
+	    if(freshPiece) //If the fresh piece couldn't move down we must be full: game over
+	    {
+	      gameOver = true;
+	      continue; //Skip the rest of this cycle
+	    }
+	    else //Wasn't a fresh piece, but it will be now
+	    {
+	      //Can't move down anymore, time to be placed and get a new piece
+	      piece->Place();
+	      delete piece;
+	      piece = new Tetris::Piece(&board,1,1);
+	      freshPiece = true;
+	    }
+	  }
 	}
 
 	//Check rows
