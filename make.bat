@@ -1,1 +1,1 @@
-g++ main.cpp board.cpp piece.cpp -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -mwindows -o Tetris.exe
+g++ main.cpp tetris.cpp board.cpp piece.cpp -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -mwindows -o Tetris.exe
