@@ -140,6 +140,38 @@ namespace Tetris
       window.Display();
 
     }
+
+    //Game over
+    sf::String gameOverText("GAME OVER");
+    gameOverText.SetSize(2);
+    gameOverText.SetColor(sf::Color::White);
+
+    sf::Clock gameOverClock;
+    while(gameOverClock.GetElapsedTime() < 5)
+    {
+      //Keep pumping the events, we don't want the window to freeze
+      sf::Event event;
+      while(window.GetEvent(event))
+      {
+	if(event.Type == sf::Event::Closed)
+	{
+	  window.Close();
+	  return score;
+	}
+	
+	if(event.Type == sf::Event::KeyPressed)
+	{
+	  if(event.Key.Code == sf::Key::Escape)
+	    return score;
+	}
+      }
+      
+      window.Clear();
+      window.Draw(gameOverText);
+      window.Display();
+
+    }
+    
     return score;
   }
 }
