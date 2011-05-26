@@ -120,16 +120,27 @@ namespace Tetris
     return true;
   }
 
-  bool Piece::Rotate()
+  bool Piece::Rotate(bool clockWise)
   {
     char newShape[5][5];
     
-    //Rotate the piece into newShape
-    for(int x = 0; x < 5; ++x)
-      for(int y = 0; y < 5; ++y)
-      {
-	newShape[x][y] = shape[5 - y - 1][x];
-      }
+    if(clockWise)
+    {
+      for(int x = 0; x < 5; ++x)
+	for(int y = 0; y < 5; ++y)
+	{
+	  newShape[x][y] = shape[y][5 - x - 1];
+	}
+    }
+    else
+    {
+      //Rotate the piece anticlockwise into newShape
+      for(int x = 0; x < 5; ++x)
+	for(int y = 0; y < 5; ++y)
+	{
+	  newShape[x][y] = shape[5 - y - 1][x];
+	}
+    }
 
     //Check if the rotation actually fits
     for(int x = 0; x < 5; ++x)
