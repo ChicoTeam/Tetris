@@ -13,7 +13,7 @@ namespace Tetris
 
     void Render(sf::RenderTarget &target);
     bool Move(int dx, int dy);
-    bool Rotate();
+    bool Rotate(bool clockWise = true);
     void Place();
   private:
     Board* board;
