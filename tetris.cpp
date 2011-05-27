@@ -32,9 +32,19 @@ namespace Tetris
     Tetris::Piece* piece = new Tetris::Piece(&board, 1,1);
   
     bool gameOver = false;
-    int score = 0;
+
     bool freshPiece = true;
 
+    //Score stuff
+    int score = 0;
+    sf::String scoreTextLabel("Score");
+    scoreTextLabel.SetSize(1);
+    scoreTextLabel.SetColor(sf::Color::White);
+    scoreTextLabel.SetPosition( 11, 2);
+    sf::String scoreText;
+    scoreText.SetSize(1);
+    scoreText.SetColor(sf::Color::White);
+    scoreText.SetPosition( 11, 3.5);
     while(!gameOver)
     {
       //Continue time if the game isn't paused
@@ -125,14 +135,33 @@ namespace Tetris
 	}
 
 	//Check rows
-	if(board.CheckRows())
-	  gameSpeed += 0.5;
+	int rowsCleared = board.CheckRows();
+	if(rowsCleared > 0)
+	{
+	  score += (100 * (rowsCleared * rowsCleared) * gameSpeed);
+	  // Simple scoring mechanic
+	  //exponential score increase based on the number of rows cleared
+
+	  gameSpeed += 0.5; //Increase the game speed a little.
+	}
       }
 
       //Render the game
       window.Clear();    
       board.Render(window);
       piece->Render(window);
+
+      window.Draw(scoreTextLabel);
+
+      /*
+	I do not like this way of converting the score to a string.
+	It's messy, nonportable and can overflow a buffer with a large enough score.
+	I'll figure out a better way later.
+      */
+      char scoreString[16];
+      itoa(score,scoreString,10);
+      scoreText.SetText(scoreString);
+      window.Draw(scoreText);
     
       if(paused)
 	window.Draw(pausedText);
@@ -143,11 +172,19 @@ namespace Tetris
 
     //Game over
     sf::String gameOverText("GAME OVER");
-    gameOverText.SetSize(2);
+    gameOverText.SetSize(1.5);
     gameOverText.SetColor(sf::Color::White);
+    gameOverText.SetPosition(2,6);
 
-    sf::Clock gameOverClock;
-    while(gameOverClock.GetElapsedTime() < 5)
+
+    //Ewww, int conversion again.
+    char scoreString[16];
+    itoa(score,scoreString,10);
+    scoreText.SetText(scoreString);
+    scoreText.SetPosition(5,10);
+
+
+    while(true)
     {
       //Keep pumping the events, we don't want the window to freeze
       sf::Event event;
@@ -168,6 +205,7 @@ namespace Tetris
       
       window.Clear();
       window.Draw(gameOverText);
+      window.Draw(scoreText);
       window.Display();
 
     }
