@@ -142,7 +142,7 @@ namespace Tetris
 	  // Simple scoring mechanic
 	  //exponential score increase based on the number of rows cleared
 
-	  gameSpeed += 0.5; //Increase the game speed a little.
+	  gameSpeed += ( 0.1 * rowsCleared ); //Increase the game speed a little.
 	}
       }
 
