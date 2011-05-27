@@ -1,1 +1,1 @@
-g++ main.cpp tetris.cpp board.cpp piece.cpp -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -mwindows -o Tetris.exe -static-libgcc -static-libstdc++
+g++ main.cpp tetris.cpp board.cpp piece.cpp util.cpp -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -mwindows -o Tetris.exe -static-libgcc -static-libstdc++
