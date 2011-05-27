@@ -21,6 +21,11 @@ namespace Tetris
     double deltaTime = 0;
     double nextStepTime = 0;
     float gameSpeed = 1;
+<<<<<<< HEAD
+=======
+    bool stepSuccessful = true;
+
+>>>>>>> c498ccb... Refactored the code a little, ready for score and menu functionality.
 
     //Setup the paused boolean and pause text
     bool paused = false;
@@ -33,7 +38,10 @@ namespace Tetris
   
     bool gameOver = false;
     int score = 0;
+<<<<<<< HEAD
     bool freshPiece = true;
+=======
+>>>>>>> c498ccb... Refactored the code a little, ready for score and menu functionality.
 
     while(!gameOver)
     {
@@ -77,7 +85,11 @@ namespace Tetris
 	    bool moving = true;
 	    while(moving)
 	      moving = piece->Move(0,1);
+<<<<<<< HEAD
 	    freshPiece = false;
+=======
+	    stepSuccessful = false;
+>>>>>>> c498ccb... Refactored the code a little, ready for score and menu functionality.
 	  }
 
 	  if(event.Key.Code == sf::Key::P)
@@ -101,6 +113,7 @@ namespace Tetris
 	if( nextStepTime < 0 )
 	{
 	  nextStepTime = (1 / gameSpeed);
+<<<<<<< HEAD
 
 	  if( piece->Move(0,1) ) //If we moved the piece down one block successfully
 	  {
@@ -122,6 +135,18 @@ namespace Tetris
 	      freshPiece = true;
 	    }
 	  }
+=======
+	  stepSuccessful = piece->Move(0,1); //move the piece down 1 if we can
+	}
+
+	if(!stepSuccessful)
+	{
+	  //Can't move the piece down, lets place it and get a new one
+	  piece->Place();
+	  delete piece;
+	  piece = new Tetris::Piece(&board,1,1);
+	  stepSuccessful = true;
+>>>>>>> c498ccb... Refactored the code a little, ready for score and menu functionality.
 	}
 
 	//Check rows
@@ -140,6 +165,7 @@ namespace Tetris
       window.Display();
 
     }
+<<<<<<< HEAD
 
     //Game over
     sf::String gameOverText("GAME OVER");
@@ -172,6 +198,8 @@ namespace Tetris
 
     }
     
+=======
+>>>>>>> c498ccb... Refactored the code a little, ready for score and menu functionality.
     return score;
   }
 }
