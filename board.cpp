@@ -95,9 +95,9 @@ namespace Tetris
     }
   }
 
-  bool Board::CheckRows()
+  int Board::CheckRows()
   {
-    bool clearedRow = false;
+    int clearedRows = 0;
     for( int y = (height - 1); y >= 0; --y)
     {
       bool full = true;
@@ -109,7 +109,7 @@ namespace Tetris
 
       if(full)
       {
-	clearedRow = true;
+	clearedRows += 1;
 	//Shift all the rows down
 	for( int y2 = y; y2 >= 0; --y2)
 	{
@@ -126,8 +126,9 @@ namespace Tetris
 	    }
 	  }
 	}
+	y += 1; //We want to re-check this row since it now contains the next row
       }
     }
-    return clearedRow;
+    return clearedRows;
   }
 }
