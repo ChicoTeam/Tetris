@@ -1,5 +1,7 @@
 #include "board.hpp"
 
+#include "util.hpp"
+
 #include <boost/multi_array.hpp>
 #include <SFML/Graphics.hpp>
 
@@ -64,40 +66,14 @@ namespace Tetris
     sf::Shape bg = sf::Shape::Rectangle(0,0,width,height,sf::Color::White);
     target.Draw(bg);
 
-    for(boardType::index x = 0; x != width; ++x)
-    {
-      for(boardType::index y = 0; y != height; ++y)
-      {
-	char block = GetBlock(x,y);
-	sf::Color blockColor;
-
-	if(block != ' ')
-	{
-	  if(block == 'r')
-	    blockColor = sf::Color::Red;
-	  if(block == 'g')
-	    blockColor = sf::Color::Green;
-	  if(block == 'b')
-	    blockColor = sf::Color::Blue;
-	  if(block == 'p')
-	    blockColor = sf::Color(255,0,255); //Purple
-	  if(block == 'o')
-	    blockColor = sf::Color(255,165,0); //Orange
-	  if(block == 'c')
-	    blockColor = sf::Color::Cyan;
-	  if(block == 'y')
-	    blockColor = sf::Color(255,255,0); //Yellow
-
-	  sf::Shape blockShape = sf::Shape::Rectangle(x+0.05,y+0.05,x+0.95,y+0.95,blockColor);
-	  target.Draw(blockShape);
-	}
-      }
-    }
+    for(int x = 0; x < width; ++x)
+      for(int y = 0; y < height; ++y)
+	Tetris::Util::DrawBlock(target, x, y, GetBlock(x,y) );
   }
 
-  bool Board::CheckRows()
+  int Board::CheckRows()
   {
-    bool clearedRow = false;
+    int clearedRows = 0;
     for( int y = (height - 1); y >= 0; --y)
     {
       bool full = true;
@@ -109,7 +85,7 @@ namespace Tetris
 
       if(full)
       {
-	clearedRow = true;
+	clearedRows += 1;
 	//Shift all the rows down
 	for( int y2 = y; y2 >= 0; --y2)
 	{
@@ -126,8 +102,9 @@ namespace Tetris
 	    }
 	  }
 	}
+	y += 1; //We want to re-check this row since it now contains the next row
       }
     }
-    return clearedRow;
+    return clearedRows;
   }
 }

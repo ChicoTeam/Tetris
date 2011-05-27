@@ -1,5 +1,7 @@
 #include "piece.hpp"
 
+#include "util.hpp"
+
 #include <SFML/Graphics.hpp>
 
 namespace Tetris
@@ -79,30 +81,7 @@ namespace Tetris
   {
     for(int x = 0; x < 5; ++x)
       for(int y = 0; y < 5; ++y)
-      {
-	sf::Color blockColor = sf::Color::Black;
-	char block = shape[x][y];
-	if(block != ' ')
-	{
-	  if(block == 'r')
-	    blockColor = sf::Color::Red;
-	  if(block == 'g')
-	    blockColor = sf::Color::Green;
-	  if(block == 'b')
-	    blockColor = sf::Color::Blue;
-	  if(block == 'p')
-	    blockColor = sf::Color(255,0,255); //Purple
-	  if(block == 'o')
-	    blockColor = sf::Color(255,165,0); //Orange
-	  if(block == 'c')
-	    blockColor = sf::Color::Cyan;
-	  if(block == 'y')
-	    blockColor = sf::Color(255,255,0); //Yellow
-	  
-	  sf::Shape blockShape = sf::Shape::Rectangle(positionX + x + 0.05, positionY + y + 0.05, positionX + x + 0.95, positionY + y + 0.95, blockColor);
-	  target.Draw(blockShape);
-	}
-      }
+	Tetris::Util::DrawBlock(target, positionX + x, positionY + y,  shape[x][y]);
   }
 
   bool Piece::Move(int dx, int dy)
