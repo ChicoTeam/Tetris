@@ -8,7 +8,8 @@ int main()
   sf::RenderWindow window(sf::VideoMode(600,800, 32), "Tetris");
 
   //Play the game
-  Tetris::Tetris(window);
+  while(window.IsOpened())
+    Tetris::Tetris(window);
 
   return 0;
 }
