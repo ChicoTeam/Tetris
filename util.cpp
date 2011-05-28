@@ -14,13 +14,13 @@ void Tetris::Util::DrawBlock(sf::RenderTarget &target, int x, int y, char color)
     if(color == 'b')
       colorColor = sf::Color::Blue;
     if(color == 'p')
-      colorColor = sf::Color(255,0,255); //Purple
+      colorColor = sf::Color::Magenta;
     if(color == 'o')
-      colorColor = sf::Color(255,165,0); //Orange
+      colorColor = sf::Color(255,127,0); //Orange
     if(color == 'c')
       colorColor = sf::Color::Cyan;
     if(color == 'y')
-      colorColor = sf::Color(255,255,0); //Yellow
+      colorColor = sf::Color::Yellow;
     
     sf::Shape colorShape = sf::Shape::Rectangle(x + 0.05, y + 0.05, x + 0.95, y + 0.95, colorColor);
     target.Draw(colorShape);
