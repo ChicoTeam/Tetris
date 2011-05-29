@@ -29,7 +29,7 @@ void Tetris::Util::DrawBlock(sf::RenderTarget &target, int x, int y, char color)
   }
 }
 
-std::string Tetris::Util::IntToChar( int value )
+std::string Tetris::Util::IntToString( int value )
 {
   std::stringstream ss;
   ss << value;

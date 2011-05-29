@@ -8,6 +8,6 @@ namespace Tetris
   namespace Util
   {
     void DrawBlock(sf::RenderTarget &target, int x, int y, char color);
-    std::string IntToChar( int value );
+    std::string IntToString( int value );
   }
 }

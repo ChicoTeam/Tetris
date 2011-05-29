@@ -154,7 +154,7 @@ namespace Tetris
 
       window.Draw(scoreTextLabel);
 
-      scoreText.SetText(Tetris::Util::IntToChar(score));
+      scoreText.SetText(Tetris::Util::IntToString(score));
       window.Draw(scoreText);
     
       if(paused)
@@ -171,7 +171,7 @@ namespace Tetris
     gameOverText.SetPosition(2,6);
 
 
-    scoreText.SetText(Tetris::Util::IntToChar(score));
+    scoreText.SetText(Tetris::Util::IntToString(score));
     scoreText.SetPosition(5,10);
 
 
