@@ -3,7 +3,7 @@
 
 #include "board.hpp"
 #include "piece.hpp"
-#include <sstream>
+#include "util.hpp"
 
 namespace Tetris
 {
@@ -154,16 +154,7 @@ namespace Tetris
 
       window.Draw(scoreTextLabel);
 
-      /*
-	I do not like this way of converting the score to a string.
-	It's messy, nonportable and can overflow a buffer with a large enough score.
-	I'll figure out a better way later.
-      */
-	  std::stringstream ss;
-	  ss << score;
-	  char scoreString[16];
-	  ss >> scoreString;
-      scoreText.SetText(scoreString);
+      scoreText.SetText(Tetris::Util::IntToChar(score));
       window.Draw(scoreText);
     
       if(paused)
@@ -180,12 +171,7 @@ namespace Tetris
     gameOverText.SetPosition(2,6);
 
 
-    //Ewww, int conversion again.
-    std::stringstream ss;
-    ss << score;
-    char scoreString[16];
-    ss >> scoreString;
-    scoreText.SetText(scoreString);
+    scoreText.SetText(Tetris::Util::IntToChar(score));
     scoreText.SetPosition(5,10);
 
 
