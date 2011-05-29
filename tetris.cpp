@@ -198,8 +198,12 @@ namespace Tetris
 	
 	if(event.Type == sf::Event::KeyPressed)
 	{
+	  //Esc still closes the game
 	  if(event.Key.Code == sf::Key::Escape)
-	    return score;
+	    window.Close();
+
+	  //Press any key to close the score screen
+	  return score;
 	}
       }
       
