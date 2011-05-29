@@ -3,6 +3,7 @@
 
 #include "board.hpp"
 #include "piece.hpp"
+#include <sstream>
 
 namespace Tetris
 {
@@ -158,8 +159,10 @@ namespace Tetris
 	It's messy, nonportable and can overflow a buffer with a large enough score.
 	I'll figure out a better way later.
       */
-      char scoreString[16];
-      itoa(score,scoreString,10);
+	  std::stringstream ss;
+	  ss << score;
+	  char scoreString[16];
+	  ss >> scoreString;
       scoreText.SetText(scoreString);
       window.Draw(scoreText);
     
@@ -178,8 +181,10 @@ namespace Tetris
 
 
     //Ewww, int conversion again.
+    std::stringstream ss;
+    ss << score;
     char scoreString[16];
-    itoa(score,scoreString,10);
+    ss >> scoreString;
     scoreText.SetText(scoreString);
     scoreText.SetPosition(5,10);
 
